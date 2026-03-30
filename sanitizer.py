@@ -1,4 +1,19 @@
 #!/usr/bin/env python3
+#
+# Copyright 2026 Daniele Mammarella
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 """
 FolderSanitizer - Sensitive data masking tool for enterprise product diagnostics.
 
@@ -1001,10 +1016,14 @@ examples:
   %(prog)s -i ./jboss_logs        -o ./out -m REDACTED
 ''',
     )
-    parser.add_argument('-i', '--input', required=True,
-                        help='Input: file, folder, or compressed archive')
-    parser.add_argument('-o', '--output', required=True,
-                        help='Output folder for sanitized results')
+    parser.add_argument('-i', '--input',
+                        default=os.environ.get('SANITIZER_INPUT_DIR', '/opt/foldersanitizer/data/input'),
+                        help='Input: file, folder, or compressed archive '
+                             '(env: SANITIZER_INPUT_DIR, default: /opt/foldersanitizer/data/input)')
+    parser.add_argument('-o', '--output',
+                        default=os.environ.get('SANITIZER_OUTPUT_DIR', '/opt/foldersanitizer/data/output'),
+                        help='Output folder for sanitized results '
+                             '(env: SANITIZER_OUTPUT_DIR, default: /opt/foldersanitizer/data/output)')
     parser.add_argument('-d', '--dry-run', action='store_true',
                         help='Scan and report only, do not write sanitized files')
     parser.add_argument('-m', '--mask', default='****',

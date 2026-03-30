@@ -10,19 +10,27 @@ Masks hostnames, IPs, usernames, passwords, tokens, certificates, and other sens
 python3 sanitizer.py -i ./input-folder -o ./sanitized-output
 ```
 
-See [sanitizer.py-README.md](sanitizer.py-README.md) for full usage and options.
+### Environment variables
+
+| ENV variable | Default | Description |
+|-------------|---------|-------------|
+| `SANITIZER_INPUT_DIR` | `/opt/foldersanitizer/data/input` | Default input path (overridden by `-i`) |
+| `SANITIZER_OUTPUT_DIR` | `/opt/foldersanitizer/data/output` | Default output path (overridden by `-o`) |
 
 ## Integration
 
-This tool is used by the [initcaseenv-agent](../initcaseenv-agent-ok/) project to sanitize customer data before feeding it to Claude Code for analysis. The `sanitizer.py` file is copied into the agent's `lib/` directory.
+This tool is used by the [initcaseenv-agent](https://github.com/danielemams/initcaseenv-agent) project. The agent includes a pure Java reimplementation of the sanitizer for runtime use; this Python version serves as the reference implementation and standalone tool.
 
 ## Files
 
 | File | Description |
 |------|-------------|
-| `sanitizer.py` | Main sanitizer script |
+| `sanitizer.py` | Main sanitizer script (Python reference implementation) |
 | `product-aliases.conf` | Shared product alias map (single source of truth) |
-| `notcommit/` | Alternative implementations (Claude Code, Gemini Pro, Gemini) for comparison |
+
+## License
+
+Apache License 2.0
 
 ## Author
 
